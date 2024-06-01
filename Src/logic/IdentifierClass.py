@@ -27,4 +27,5 @@ class AllFileTokens:
 
     def printList(self):
         for identifier in self.allTokens:
-            identifier.printId()
+            if identifier.name is not None and identifier.fileName is not None and identifier.lineNo is not None:
+                identifier.printId()

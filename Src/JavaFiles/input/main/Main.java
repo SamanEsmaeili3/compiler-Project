@@ -17,7 +17,7 @@ public class Main {
     public static final int l = 10;
     public static final int NUM_STUDENTS = 100;
 
-    public static String plus(String i1, String i2){
+    public static string plus(String i1, String i2){
         return i1.concat(i2);
     }
 
@@ -34,4 +34,5 @@ public interface iT{
     void print();
     int gh();
     int u = 98;
+    int j = 4;
 }
