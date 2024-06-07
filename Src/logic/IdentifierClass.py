@@ -11,7 +11,8 @@ class Identifier:
     def printId(self):
         print(
             f"The name is : {self.name}, The file name is : {self.fileName}, The line number is : {self.lineNo}, "
-            f"The token type is : {self.tokenType}, The value is : {self.value}, var or return type : {self.varOrReturnType}")
+            f"The token type is : {self.tokenType}, The value is : {self.value}, "
+            f"var or return type : {self.varOrReturnType}")
         print("*******************************************************************************************************")
 
 
