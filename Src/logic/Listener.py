@@ -1,14 +1,15 @@
+from Src.logic import IdentifierList
 from Src.logic.JavaParserListener import JavaParserListener
 from JavaParser import *
-import IdentifierClass
+import Identifier
 
 
 class Listener(JavaParserListener):
 
     def __init__(self, currentFile, executer):
         self.out = []
-        self.identifier = IdentifierClass.Identifier()
-        self.AllFileTokens = IdentifierClass.AllFileTokens()
+        self.identifier = Identifier.Identifier()
+        self.identifiers = IdentifierList.IdentifierList()
         self.executer = executer
         self.currentFile = currentFile
         self.vars = []
@@ -23,48 +24,47 @@ class Listener(JavaParserListener):
         self.values = []
 
     def enterIdentifier(self, ctx: JavaParser.IdentifierContext):
+        # ctxNum = ctx.parentCtx.getRuleIndex()  #thiese three lines used for debuging
+        # ctxName = ctx.getChild(0).getText()
+        # ctx_P = ctx.parentCtx.parentCtx.getRuleIndex()
+        # ctxToken = ctx.start
 
-        # print(ctx.getText(), ctx.parentCtx.getRuleIndex())
-        # if var --> add var to self.vars
-        # ...
-
-        #print(ctx.getChild(0).getText())
         if ctx.parentCtx.getRuleIndex() == 11:
             self.enumDeclaration.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
-            self.identifier.tokenType = 1
+            self.identifier.tokenType = 11
 
-        if ctx.parentCtx.getRuleIndex() == 13:
+        elif ctx.parentCtx.getRuleIndex() == 13:
             self.enumConstant.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
             self.identifier.tokenType = 13
 
-        if ctx.parentCtx.getRuleIndex() == 15:
+        elif ctx.parentCtx.getRuleIndex() == 15:
             self.interfaceDeclaration.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
             self.identifier.tokenType = 15
 
-        if ctx.parentCtx.getRuleIndex() == 31:
+        elif ctx.parentCtx.getRuleIndex() == 31:
             self.constantDeclarator.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
             self.identifier.tokenType = 31
 
-        if ctx.parentCtx.getRuleIndex() == 35:
+        elif ctx.parentCtx.getRuleIndex() == 35:
             self.interfaceCommonBodyDeclaration.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
             self.identifier.tokenType = 35
 
-        if ctx.parentCtx.getRuleIndex() == 7:
+        elif ctx.parentCtx.getRuleIndex() == 7:
             self.classes.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
@@ -73,72 +73,58 @@ class Listener(JavaParserListener):
             self.identifier.varOrReturnType = self.identifier.name
             self.identifier.value = "null"
 
-        if ctx.parentCtx.getRuleIndex() == 38:
+        elif ctx.parentCtx.getRuleIndex() == 38:
             self.vars.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
             self.identifier.tokenType = 38
 
-        if ctx.parentCtx.getRuleIndex() == 20:
+        elif ctx.parentCtx.getRuleIndex() == 20:
             self.methods.append(ctx.getChild(0).getText())
             self.identifier.name = ctx.getChild(0).getText()
             self.identifier.fileName = self.currentFile
             self.identifier.lineNo = ctx.start.line
             self.identifier.tokenType = 20
-        if ctx.parentCtx.getRuleIndex() == 25:
-            self.methods.append(ctx.getChild(0).getText())
-            self.identifier.name = ctx.getChild(0).getText()
-            self.identifier.fileName = self.currentFile
-            self.identifier.lineNo = ctx.start.line
-            self.identifier.tokenType = 20
-            self.identifier.varOrReturnType = self.identifier.name
+
+        # elif ctx.parentCtx.getRuleIndex() == 25:   //Constructor method
+        #     self.methods.append(ctx.getChild(0).getText())
+        #     self.identifier.name = ctx.getChild(0).getText()
+        #     self.identifier.fileName = self.currentFile
+        #     self.identifier.lineNo = ctx.start.line
+        #     self.identifier.tokenType = 20
+        #     self.identifier.varOrReturnType = self.identifier.name
+
+        if ctx.parentCtx.getRuleIndex() in [7, 11, 20, 13, 15, 35, 31, 38]:
+            self.identifier.setEditedName(createNewName(self.identifier.name))
+            self.addToList()
+        # if ctx.parentCtx.parentCtx.getRuleIndex() == 47:
+        #     self.identifier.setEditedName(createNewName(self.identifier.name))
+        #     self.addToList()  #method argument Rule index
 
     def enterVariableInitializer(self, ctx: JavaParser.ElementValueContext):
-        #print("(", ctx.getChild(0).getText(), ")")
-        #print(ctx.getRuleIndex())
-        #print(2)
         self.identifier.value = ctx.getChild(0).getText()
         self.values.append(ctx.getChild(0).getText())
-        self.AllFileTokens.addId(self.identifier)
-        self.identifier = IdentifierClass.Identifier()
-        #self.visitedRules = []
-        #print("------------------------------------------------------------")
-        # self.identifier.printId()
-        # self.AllFileTokens.addId(self.identifier)
-        # self.identifier = IdentifierClass.Identifier()
-        # if self.identifier.tokenType == 20:
-        # if self.identifier.value == "null" or self.identifier.varOrReturnType == "void":
-        # self.AllFileTokens.addId(self.identifier)
-        # self.identifier = IdentifierClass.Identifier()
+        self.identifier.setEditedName(createNewName(self.identifier.name))
+        self.addToList()
 
     def enterTypeType(self, ctx: JavaParser.LocalVariableDeclarationContext):
-        #print(3)
-        #print(ctx.getRuleIndex())
+        # print(3)
+        # print(ctx.getRuleIndex())
         # print("TYPE IS: ")
         # print(ctx.getText())
+        tup = ctx.getText()
         self.identifier.varOrReturnType = ctx.getText()
         self.types.append(ctx.getText())
 
     def enterMethodDeclaration(self, ctx: JavaParser.MethodDeclarationContext):
-        #print(4)
+        # print(4)
         self.identifier.varOrReturnType = ctx.getChild(0).getText()
         self.identifier.value = "null"
         # print(ctx.getChild(0).getText())
 
-    def exitIdentifier(self, ctx: JavaParser.IdentifierContext):
-        #print(5)
-        if ctx.parentCtx.parentCtx.getRuleIndex() == 47:  #method Argument rule index
-            self.AllFileTokens.addId(self.identifier)
-            self.identifier = IdentifierClass.Identifier()
-
-        elif (ctx.parentCtx.getRuleIndex() != 31) and (ctx.parentCtx.getRuleIndex() != 38):
-            self.AllFileTokens.addId(self.identifier)
-            self.identifier = IdentifierClass.Identifier()
-        #print("----------------------------------------------")
-
     def exitCompilationUnit(self, ctx: JavaParser.CompilationUnitContext):
-        #print(6)
+        # print(6)
         print("*************************************************")
         print("vars: ", self.vars)
         print("methods: ", self.methods)
@@ -152,7 +138,16 @@ class Listener(JavaParserListener):
         print("types: ", self.types)
         print("*************************************************")
 
-        self.AllFileTokens.printList()
+        # self.identifiers.printList()
 
-    def allTokens(self):
-        return self.AllFileTokens
+    def identifierList(self):
+        return self.identifiers
+
+    def addToList(self):
+        self.identifiers.addId(self.identifier)
+        self.identifier = Identifier.Identifier()
+
+
+def createNewName(name):
+    n = str(name)
+    return f'New_{n}'

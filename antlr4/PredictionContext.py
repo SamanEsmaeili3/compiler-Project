@@ -281,22 +281,22 @@ def merge(a:PredictionContext, b:PredictionContext, rootIsWildcard:bool, mergeCa
 # Merge two {@link SingletonPredictionContext} instances.
 #
 # <p>Stack tops equal, parents merge is same; return left graph.<br>
-# <embed src="images/SingletonMerge_SameRootSamePar.svg" type="image/svg+xml"/></p>
+# <embed output="images/SingletonMerge_SameRootSamePar.svg" type="image/svg+xml"/></p>
 #
 # <p>Same stack top, parents differ; merge parents giving array node, then
 # remainders of those graphs. A new root node is created to point to the
 # merged parents.<br>
-# <embed src="images/SingletonMerge_SameRootDiffPar.svg" type="image/svg+xml"/></p>
+# <embed output="images/SingletonMerge_SameRootDiffPar.svg" type="image/svg+xml"/></p>
 #
 # <p>Different stack tops pointing to same parent. Make array node for the
 # root where both element in the root point to the same (original)
 # parent.<br>
-# <embed src="images/SingletonMerge_DiffRootSamePar.svg" type="image/svg+xml"/></p>
+# <embed output="images/SingletonMerge_DiffRootSamePar.svg" type="image/svg+xml"/></p>
 #
 # <p>Different stack tops pointing to different parents. Make array node for
 # the root where each element points to the corresponding original
 # parent.<br>
-# <embed src="images/SingletonMerge_DiffRootDiffPar.svg" type="image/svg+xml"/></p>
+# <embed output="images/SingletonMerge_DiffRootDiffPar.svg" type="image/svg+xml"/></p>
 #
 # @param a the first {@link SingletonPredictionContext}
 # @param b the second {@link SingletonPredictionContext}
@@ -374,27 +374,27 @@ def mergeSingletons(a:SingletonPredictionContext, b:SingletonPredictionContext, 
 # is true.</p>
 #
 # <p>{@link #EMPTY} is superset of any graph; return {@link #EMPTY}.<br>
-# <embed src="images/LocalMerge_EmptyRoot.svg" type="image/svg+xml"/></p>
+# <embed output="images/LocalMerge_EmptyRoot.svg" type="image/svg+xml"/></p>
 #
 # <p>{@link #EMPTY} and anything is {@code #EMPTY}, so merged parent is
 # {@code #EMPTY}; return left graph.<br>
-# <embed src="images/LocalMerge_EmptyParent.svg" type="image/svg+xml"/></p>
+# <embed output="images/LocalMerge_EmptyParent.svg" type="image/svg+xml"/></p>
 #
 # <p>Special case of last merge if local context.<br>
-# <embed src="images/LocalMerge_DiffRoots.svg" type="image/svg+xml"/></p>
+# <embed output="images/LocalMerge_DiffRoots.svg" type="image/svg+xml"/></p>
 #
 # <h2>Full-Context Merges</h2>
 #
 # <p>These full-context merge operations are used when {@code rootIsWildcard}
 # is false.</p>
 #
-# <p><embed src="images/FullMerge_EmptyRoots.svg" type="image/svg+xml"/></p>
+# <p><embed output="images/FullMerge_EmptyRoots.svg" type="image/svg+xml"/></p>
 #
 # <p>Must keep all contexts; {@link #EMPTY} in array is a special value (and
 # null parent).<br>
-# <embed src="images/FullMerge_EmptyRoot.svg" type="image/svg+xml"/></p>
+# <embed output="images/FullMerge_EmptyRoot.svg" type="image/svg+xml"/></p>
 #
-# <p><embed src="images/FullMerge_SameRoot.svg" type="image/svg+xml"/></p>
+# <p><embed output="images/FullMerge_SameRoot.svg" type="image/svg+xml"/></p>
 #
 # @param a the first {@link SingletonPredictionContext}
 # @param b the second {@link SingletonPredictionContext}
@@ -425,20 +425,20 @@ def mergeRoot(a:SingletonPredictionContext, b:SingletonPredictionContext, rootIs
 # Merge two {@link ArrayPredictionContext} instances.
 #
 # <p>Different tops, different parents.<br>
-# <embed src="images/ArrayMerge_DiffTopDiffPar.svg" type="image/svg+xml"/></p>
+# <embed output="images/ArrayMerge_DiffTopDiffPar.svg" type="image/svg+xml"/></p>
 #
 # <p>Shared top, same parents.<br>
-# <embed src="images/ArrayMerge_ShareTopSamePar.svg" type="image/svg+xml"/></p>
+# <embed output="images/ArrayMerge_ShareTopSamePar.svg" type="image/svg+xml"/></p>
 #
 # <p>Shared top, different parents.<br>
-# <embed src="images/ArrayMerge_ShareTopDiffPar.svg" type="image/svg+xml"/></p>
+# <embed output="images/ArrayMerge_ShareTopDiffPar.svg" type="image/svg+xml"/></p>
 #
 # <p>Shared top, all shared parents.<br>
-# <embed src="images/ArrayMerge_ShareTopSharePar.svg" type="image/svg+xml"/></p>
+# <embed output="images/ArrayMerge_ShareTopSharePar.svg" type="image/svg+xml"/></p>
 #
 # <p>Equal tops, merge parents and reduce top to
 # {@link SingletonPredictionContext}.<br>
-# <embed src="images/ArrayMerge_EqualTop.svg" type="image/svg+xml"/></p>
+# <embed output="images/ArrayMerge_EqualTop.svg" type="image/svg+xml"/></p>
 #/
 def mergeArrays(a:ArrayPredictionContext, b:ArrayPredictionContext, rootIsWildcard:bool, mergeCache:dict):
     if mergeCache is not None:

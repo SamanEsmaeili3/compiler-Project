@@ -1,0 +1,1 @@
+package ir . ac . kntu . logic ; public enum New_RifleType { New_ASSAULT , New_SNIPER }

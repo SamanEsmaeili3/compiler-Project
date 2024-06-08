@@ -10,6 +10,7 @@ def main():
 def getFilePaths():
     names = []
     filepaths = []
+
     final_path = os.path.join(os.path.dirname(__file__), '..', 'JavaFiles', 'input', 'main')
     w = walk(final_path)
     for (dirpath, dirnames, filenames) in w:

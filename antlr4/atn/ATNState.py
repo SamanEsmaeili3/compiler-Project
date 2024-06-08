@@ -29,39 +29,39 @@
 #
 # <h3>Rule</h3>
 #
-# <embed src="images/Rule.svg" type="image/svg+xml"/>
+# <embed output="images/Rule.svg" type="image/svg+xml"/>
 #
 # <h3>Block of 1 or more alternatives</h3>
 #
-# <embed src="images/Block.svg" type="image/svg+xml"/>
+# <embed output="images/Block.svg" type="image/svg+xml"/>
 #
 # <h2>Greedy Loops</h2>
 #
 # <h3>Greedy Closure: {@code (...)*}</h3>
 #
-# <embed src="images/ClosureGreedy.svg" type="image/svg+xml"/>
+# <embed output="images/ClosureGreedy.svg" type="image/svg+xml"/>
 #
 # <h3>Greedy Positive Closure: {@code (...)+}</h3>
 #
-# <embed src="images/PositiveClosureGreedy.svg" type="image/svg+xml"/>
+# <embed output="images/PositiveClosureGreedy.svg" type="image/svg+xml"/>
 #
 # <h3>Greedy Optional: {@code (...)?}</h3>
 #
-# <embed src="images/OptionalGreedy.svg" type="image/svg+xml"/>
+# <embed output="images/OptionalGreedy.svg" type="image/svg+xml"/>
 #
 # <h2>Non-Greedy Loops</h2>
 #
 # <h3>Non-Greedy Closure: {@code (...)*?}</h3>
 #
-# <embed src="images/ClosureNonGreedy.svg" type="image/svg+xml"/>
+# <embed output="images/ClosureNonGreedy.svg" type="image/svg+xml"/>
 #
 # <h3>Non-Greedy Positive Closure: {@code (...)+?}</h3>
 #
-# <embed src="images/PositiveClosureNonGreedy.svg" type="image/svg+xml"/>
+# <embed output="images/PositiveClosureNonGreedy.svg" type="image/svg+xml"/>
 #
 # <h3>Non-Greedy Optional: {@code (...)??}</h3>
 #
-# <embed src="images/OptionalNonGreedy.svg" type="image/svg+xml"/>
+# <embed output="images/OptionalNonGreedy.svg" type="image/svg+xml"/>
 #
 
 from antlr4.atn.Transition import Transition

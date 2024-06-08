@@ -4,10 +4,10 @@
 # can be found in the LICENSE.txt file in the project root.
 #/
 
-# Represents an executor for a sequence of lexer actions which traversed during
+# Represents an executer for a sequence of lexer actions which traversed during
 # the matching operation of a lexer rule (token).
 #
-# <p>The executor tracks position information for position-dependent lexer actions
+# <p>The executer tracks position information for position-dependent lexer actions
 # efficiently, ensuring that actions appearing only at the end of the rule do
 # not cause bloating of the {@link DFA} created for the lexer.</p>
 
@@ -33,10 +33,10 @@ class LexerActionExecutor(object):
     # the input {@code lexerActionExecutor} followed by a specified
     # {@code lexerAction}.
     #
-    # @param lexerActionExecutor The executor for actions already traversed by
+    # @param lexerActionExecutor The executer for actions already traversed by
     # the lexer while matching a token within a particular
     # {@link LexerATNConfig}. If this is {@code null}, the method behaves as
-    # though it were an empty executor.
+    # though it were an empty executer.
     # @param lexerAction The lexer action to execute after the actions
     # specified in {@code lexerActionExecutor}.
     #
@@ -53,7 +53,7 @@ class LexerActionExecutor(object):
     # Creates a {@link LexerActionExecutor} which encodes the current offset
     # for position-dependent lexer actions.
     #
-    # <p>Normally, when the executor encounters lexer actions where
+    # <p>Normally, when the executer encounters lexer actions where
     # {@link LexerAction#isPositionDependent} returns {@code true}, it calls
     # {@link IntStream#seek} on the input {@link CharStream} to set the input
     # position to the <em>end</em> of the current token. This behavior provides
@@ -69,7 +69,7 @@ class LexerActionExecutor(object):
     # to sharing among tokens of the same length, regardless of their absolute
     # position in the input stream.</p>
     #
-    # <p>If the current executor already has offsets assigned to all
+    # <p>If the current executer already has offsets assigned to all
     # position-dependent lexer actions, the method returns {@code this}.</p>
     #
     # @param offset The current offset to assign to all position-dependent
@@ -92,7 +92,7 @@ class LexerActionExecutor(object):
             return LexerActionExecutor(updatedLexerActions)
 
 
-    # Execute the actions encapsulated by this executor within the context of a
+    # Execute the actions encapsulated by this executer within the context of a
     # particular {@link Lexer}.
     #
     # <p>This method calls {@link IntStream#seek} to set the position of the

@@ -149,7 +149,7 @@ class LexerATNSimulator(ATNSimulator):
             if LexerATNSimulator.debug:
                 print("execATN loop starting closure:", str(s.configs))
 
-            # As we move src->trg, src->trg, we keep track of the previous trg to
+            # As we move output->trg, output->trg, we keep track of the previous trg to
             # avoid looking up the DFA state again, which is expensive.
             # If the previous target was already part of the DFA, we might
             # be able to avoid doing a reach operation upon t. If s!=null,
@@ -190,7 +190,7 @@ class LexerATNSimulator(ATNSimulator):
 
             t = input.LA(1)
 
-            s = target # flip; current DFA target becomes new src/from state
+            s = target # flip; current DFA target becomes new output/from state
 
         return self.failOrAccept(self.prevAccept, input, s.configs, t)
 
